@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use App\Models\Technology;
+
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return view('admin.projects.index', ['projects' => Project::orderByDesc('id')->paginate(10)]);
@@ -25,16 +25,14 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
+
+        $technologys = Technology::all();
         $types = Type::all();
-
-
-
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologys'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(StoreProjectRequest $request)
     {
 
@@ -50,7 +48,6 @@ class ProjectController extends Controller
         if ($request->has('cover_image')) {
 
             $image_path = Storage::put('uploads', $validated['cover_image']);
-            // dd($image_path);
             $validated['cover_image'] = $image_path;
         }
 
@@ -59,17 +56,11 @@ class ProjectController extends Controller
         return to_route('admin.project.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Project $project)
     {
         return view('admin.projects.show', compact('project'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Project $project)
     {
 
@@ -77,9 +68,6 @@ class ProjectController extends Controller
         return view('admin.projects.edit', compact('project', 'types'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $validated = $request->validated();
@@ -97,7 +85,7 @@ class ProjectController extends Controller
 
 
             $image_path = Storage::put('uploads', $validated['cover_image']);
-            // dd($image_path);
+
             $validated['cover_image'] = $image_path;
 
         }
@@ -107,9 +95,6 @@ class ProjectController extends Controller
         return to_route('admin.project.index')->with('message', "Post $project->title update successfully");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Project $project)
     {
 

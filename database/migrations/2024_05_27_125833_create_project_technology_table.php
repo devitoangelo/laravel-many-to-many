@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_technology', function (Blueprint $table) {
+
+            //Tabella project
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')
             ->references('id')
@@ -19,19 +21,17 @@ return new class extends Migration
             ->cascadeOnDelete();
 
 
+            //Tabella Technologt
             $table->unsignedBigInteger('technology_id');
             $table->foreign('technology_id')
             ->references('id')
             ->on('technology')
             ->cascadeOnDelete();
 
-
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('project_technology');
