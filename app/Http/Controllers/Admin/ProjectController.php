@@ -32,18 +32,14 @@ class ProjectController extends Controller
         return view('admin.projects.create', compact('types', 'technologys'));
     }
 
-  
+
     public function store(StoreProjectRequest $request)
     {
-
-
 
         $validated = $request->validated();
         $slug = Str::slug($request->title, '-');
 
         $validated['slug'] = $slug;
-
-       
 
         if ($request->has('cover_image')) {
 
@@ -52,9 +48,18 @@ class ProjectController extends Controller
         }
 
 
-        Project::create($validated);
+
+        $project = Project::create($validated);
+        //associato i project in technologys
+        if($request->has('technologys')){
+            $project->technologys()->attach($validated['technologys']);
+        }
+
+       
         return to_route('admin.project.index');
     }
+
+
 
     public function show(Project $project)
     {
@@ -64,8 +69,10 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
 
+
+       $technologys = Technology::all();
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologys'));
     }
 
     public function update(UpdateProjectRequest $request, Project $project)
@@ -74,10 +81,10 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title, '-');
         $validated['slug'] = $slug;
 
-        if($request->has('cover_image')){
+        if ($request->has('cover_image')) {
 
 
-            if($project->cover_image){
+            if ($project->cover_image) {
 
                 Storage::delete($project->cover_image);
             }
@@ -87,7 +94,6 @@ class ProjectController extends Controller
             $image_path = Storage::put('uploads', $validated['cover_image']);
 
             $validated['cover_image'] = $image_path;
-
         }
 
 
@@ -98,7 +104,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
 
-        if($project->cover_image){
+        if ($project->cover_image) {
 
             Storage::delete($project->cover_image);
         }
