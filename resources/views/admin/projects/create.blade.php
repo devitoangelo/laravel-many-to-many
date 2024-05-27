@@ -3,7 +3,7 @@
 @section('content')
     <header class="py-3 bg-dark text-white">
         <div class="container d-flex align-items-center justify-content-between">
-            <h1>Writing post</h1>
+            <h1>Writing Project</h1>
         </div>
     </header>
 
@@ -39,7 +39,7 @@
                 @error('cover_image')
                     <div class="text-danger py-2">
                         {{ $message }}
-            
+
 
                     </div>
                 @enderror
@@ -51,7 +51,8 @@
                         <option selected disabled>Select a Type</option>
                         {{-- foreach per il tipo di progetto --}}
                         @foreach ($types as $type)
-                            <option value="{{ $type->id }}"{{$type->id == old('type_id') ? 'selected' : '' }}>{{ $type->name }}</option>
+                            <option value="{{ $type->id }}"{{ $type->id == old('type_id') ? 'selected' : '' }}>
+                                {{ $type->name }}</option>
                         @endforeach
 
                     </select>
@@ -59,17 +60,32 @@
 
 
 
-                @foreach ($technologys as $technology)
-     
-                <div class="form-check">
-                    <input name='technologys[]' class="form-check-input" type="checkbox" value="" id="technology-{{$technology->id}}" />
-                    <label class="form-check-label" for="technology-{{$technology->id}}"> {{$technology->name}} </label>
-                </div>
-                    
-                @endforeach
 
-      
-                
+                <div style="display: flex" class="mb-3 gap-5 flex-wrap">
+
+                    @foreach ($technologys as $technology)
+                        <div class="form-check ">
+                            <input name='technologys[]' class="form-check-input" type="checkbox"
+                                value="{{ $technology->id }}" id="technology-{{ $technology->id }}"
+                                {{ in_array($technology->id, old('technologys', [])) ? 'checked' : '' }} />
+                            <label class="form-check-label" for="technology-{{ $technology->id }}">
+                                {{ $technology->name }} </label>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                @error('technologys')
+                    <div class="text-danger py-2">
+                        {{ $message }}
+
+
+                    </div>
+                @enderror
+
+
+
+
 
 
 
