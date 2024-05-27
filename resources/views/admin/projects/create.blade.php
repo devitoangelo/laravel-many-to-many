@@ -39,6 +39,7 @@
                 @error('cover_image')
                     <div class="text-danger py-2">
                         {{ $message }}
+            
 
                     </div>
                 @enderror
