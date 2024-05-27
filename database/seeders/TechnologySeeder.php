@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Technology;
 use Illuminate\Support\Str;
 
+
 class TechnologySeeder extends Seeder
 {
     /**
@@ -22,7 +23,7 @@ class TechnologySeeder extends Seeder
 
                 $newTechnology = new Technology();
                 $newTechnology->name = $technology;
-                $newTechnology->slug = Str::slug($newTechnology->name, '-');
+                $newTechnology->slug = str::of($newTechnology->name)->slug('-');
                 $newTechnology->save();
 
             }
