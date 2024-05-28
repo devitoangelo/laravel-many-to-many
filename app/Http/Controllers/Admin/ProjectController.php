@@ -51,8 +51,8 @@ class ProjectController extends Controller
 
         $project = Project::create($validated);
         //associato i project in technologys
-        if($request->has('technologys')){
-            $project->technologys()->attach($validated['technologys']);
+        if($request->has('technology')){
+            $project->technology()->attach($validated['technology']);
         }
 
        
@@ -68,7 +68,6 @@ class ProjectController extends Controller
 
     public function edit(Project $project)
     {
-
 
        $technologys = Technology::all();
         $types = Type::all();
@@ -88,8 +87,6 @@ class ProjectController extends Controller
 
                 Storage::delete($project->cover_image);
             }
-
-
 
             $image_path = Storage::put('uploads', $validated['cover_image']);
 

@@ -77,14 +77,21 @@
                                     {{ $technology->name }} </label>
                             </div>
                         @else
-                        <div class="form-check ">
-                            <input name='technologys[]' class="form-check-input" type="checkbox"
-                                value="{{ $technology->id }}" id="technology-{{ $technology->id }}"
-                                {{ in_array($technology->id, old('technologys', [])) ? 'checked' : '' }} />
-                            <label class="form-check-label" for="technology-{{ $technology->id }}">
-                                {{ $technology->name }} </label>
-                        </div>
+                            {{-- <div class="form-check ">
+                                <input name='technologys[]' class="form-check-input" type="checkbox"
+                                    value="{{ $technology->id }}" id="technology-{{ $technology->id }}"
+                                    {{ in_array($technology->id, $project->technologys->pluck('id')->toArray()) ? 'checked' : '' }} />
+                                <label class="form-check-label" for="technology-{{ $technology->id }}">
+                                    {{ $technology->name }} </label>
+                            </div> --}}
 
+                            <div class="form-check ">
+                                <input name='technologys[]' class="form-check-input" type="checkbox"
+                                    value="{{ $technology->id }}" id="technology-{{ $technology->id }}"
+                                    {{ $project->technologys->contains($technology) ? 'checked' : '' }} />
+                                <label class="form-check-label" for="technology-{{ $technology->id }}">
+                                    {{ $technology->name }} </label>
+                            </div>
 
                         @endif
                     @endforeach

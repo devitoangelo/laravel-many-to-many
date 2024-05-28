@@ -84,13 +84,6 @@
                 @enderror
 
 
-
-
-
-
-
-
-
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
