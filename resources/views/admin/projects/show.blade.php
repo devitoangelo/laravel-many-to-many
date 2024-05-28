@@ -28,6 +28,15 @@
 
                     </div>
                     <p><strong>Description</strong> : {{ $project->content }}</p>
+               
+                    @forelse ($project->technologys as $technology)
+                    <span>{{$technology->name}}</span>
+                        
+                    @empty
+                    <span><strong>Technology</strong> : n/a </span>
+                        
+                    @endforelse
+
                 </div>
             </div>
 
