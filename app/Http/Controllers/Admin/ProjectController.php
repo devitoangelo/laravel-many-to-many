@@ -15,24 +15,23 @@ use App\Models\Technology;
 class ProjectController extends Controller
 {
 
+    //index 
     public function index()
     {
         return view('admin.projects.index', ['projects' => Project::orderByDesc('id')->paginate(10)]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    // Create
     public function create()
     {
-
 
         $technologys = Technology::all();
         $types = Type::all();
         return view('admin.projects.create', compact('types', 'technologys'));
     }
 
-
+    // store
     public function store(StoreProjectRequest $request)
     {
 
@@ -48,7 +47,6 @@ class ProjectController extends Controller
         }
 
 
-
         $project = Project::create($validated);
         //associato i project in technologys
         if($request->has('technology')){
@@ -61,6 +59,7 @@ class ProjectController extends Controller
 
 
 
+    // show
     public function show(Project $project)
     {
 
@@ -68,6 +67,7 @@ class ProjectController extends Controller
         return view('admin.projects.show', compact('project', 'technologys'));
     }
 
+    // edit
     public function edit(Project $project)
     {
 
@@ -76,6 +76,8 @@ class ProjectController extends Controller
         return view('admin.projects.edit', compact('project', 'types', 'technologys'));
     }
 
+
+    // update
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $validated = $request->validated();
@@ -100,6 +102,8 @@ class ProjectController extends Controller
         return to_route('admin.project.index')->with('message', "Post $project->title update successfully");
     }
 
+    
+    // destroy
     public function destroy(Project $project)
     {
 

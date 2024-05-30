@@ -23,7 +23,7 @@
 
 
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container" >
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     <div class="logo_laravel">
                         <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -93,10 +93,12 @@
             </div>
         </nav>
 
-        <main class="">
+        <main class="" class="">
             @yield('content')
         </main>
     </div>
 </body>
+
+
 
 </html>

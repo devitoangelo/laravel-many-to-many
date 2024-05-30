@@ -67,6 +67,9 @@
 
                 <div style="display: flex" class="mb-3 gap-5 flex-wrap mt-4">
 
+
+
+
                     @foreach ($technologys as $technology)
                         @if ($errors->any())
                             <div class="form-check ">
@@ -77,13 +80,13 @@
                                     {{ $technology->name }} </label>
                             </div>
                         @else
-                            {{-- <div class="form-check ">
+                            <div class="form-check ">
                                 <input name='technologys[]' class="form-check-input" type="checkbox"
                                     value="{{ $technology->id }}" id="technology-{{ $technology->id }}"
                                     {{ in_array($technology->id, $project->technologys->pluck('id')->toArray()) ? 'checked' : '' }} />
                                 <label class="form-check-label" for="technology-{{ $technology->id }}">
                                     {{ $technology->name }} </label>
-                            </div> --}}
+                            </div>
 
                             <div class="form-check ">
                                 <input name='technologys[]' class="form-check-input" type="checkbox"
@@ -92,13 +95,11 @@
                                 <label class="form-check-label" for="technology-{{ $technology->id }}">
                                     {{ $technology->name }} </label>
                             </div>
-
                         @endif
                     @endforeach
+
+
                 </div>
-
-
-
 
 
                 @error('technologys')
