@@ -36,32 +36,22 @@ class ProjectController extends Controller
     public function show($id)
     {
 
-
-        
         $projects = Project::with('technologys', 'type')->where('id', $id)->first();
 
         if ($projects) {
             return response()->json(
-
                 [
-
                     'success' => true,
                     'response' => $projects,
                 ]
             );
-
         } else {
 
             return response()->json(
-
                 [
                     'success' => false,
-                    'response' => 'Sprry not projects'
-
-
+                    'response' => 'Sorry not projects'
                 ]
-
-
             );
         }
     }
