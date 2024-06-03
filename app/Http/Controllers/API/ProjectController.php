@@ -21,4 +21,48 @@ class ProjectController extends Controller
             'projects' => $projects
         ]);
     }
+
+    public function latest()
+    {
+
+        $projects = Project::with('technologys', 'type')->orderByDesc('id')->take(3)->get();
+        return response()->json([
+
+            'success' => true,
+            'projects' => $projects
+        ]);
+    }
+
+    public function show($id)
+    {
+
+
+        
+        $projects = Project::with('technologys', 'type')->where('id', $id)->first();
+
+        if ($projects) {
+            return response()->json(
+
+                [
+
+                    'success' => true,
+                    'response' => $projects,
+                ]
+            );
+
+        } else {
+
+            return response()->json(
+
+                [
+                    'success' => false,
+                    'response' => 'Sprry not projects'
+
+
+                ]
+
+
+            );
+        }
+    }
 }
