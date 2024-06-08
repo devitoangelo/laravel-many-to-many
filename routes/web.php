@@ -24,7 +24,12 @@ Route::middleware(['auth', 'verified'])
 
 
 Route::get('/mailable', function () {
-    $lead = 'hi';
+    $lead = [
+
+        'name' => 'Angelo',
+        'email' => 'angelo@example.com',
+        'message' => 'Messaggio prova'
+    ];
     return new App\Mail\NewLeadMessage($lead);
 });
 
